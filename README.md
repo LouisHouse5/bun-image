@@ -1,5 +1,9 @@
 # bun-image
 
+![Bun](https://img.shields.io/badge/Bun-v1.3.14+-fbf0df?logo=bun&logoColor=000)
+![Bun.Image](https://img.shields.io/badge/API-Bun.Image-6fbf73?labelColor=2a2a2a)
+![Zero Dependencies](https://img.shields.io/badge/dependencies-zero-4c1?labelColor=2a2a2a)
+
 [中文](#中文) | [English](#english)
 
 ---
