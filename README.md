@@ -12,7 +12,7 @@
 - **响应式图片**：一键生成多尺寸图片集
 - **占位图生成**：内置 ThumbHash 占位图（~400-700 字节）
 
-## 安装
+## 前置依赖
 
 ```bash
 # 安装 Bun (v1.3.14+)
@@ -22,19 +22,82 @@ curl -fsSL https://bun.sh/install | bash
 ## 快速开始
 
 ```bash
-cd ~/.claude/skills/bun-image
-
 # 1. 调整单张图片大小
-bun run scripts/resize.ts examples/photo.jpg 800 600 output.jpg
+bun run scripts/resize.ts photo.jpg 800 600 output.jpg
 
 # 2. 批量处理目录
 bun run scripts/batch-resize.ts ./images ./output
 
 # 3. 格式转换
-bun run scripts/convert.ts examples/photo.jpg webp
+bun run scripts/convert.ts photo.jpg webp
 
 # 4. 生成响应式图片集
-bun run scripts/responsive.ts examples/hero.jpg
+bun run scripts/responsive.ts hero.jpg
+```
+
+## 在 AI Agent 中安装
+
+### Claude Code
+
+```bash
+# 克隆到用户级 skills 目录（全局可用）
+git clone https://github.com/LouisHouse5/bun-image.git ~/.claude/skills/bun-image
+
+# 或克隆到项目级目录（仅当前项目可用）
+git clone https://github.com/LouisHouse5/bun-image.git .claude/skills/bun-image
+```
+
+### Cursor
+
+将 [SKILL.md](SKILL.md) 内容复制到项目规则文件：
+
+```bash
+mkdir -p .cursor/rules
+cp SKILL.md .cursor/rules/bun-image.mdc
+```
+
+### Cline (VS Code)
+
+```bash
+# 添加到项目根目录的自定义指令文件
+cat SKILL.md >> cline-instructions.md
+```
+
+### GitHub Copilot
+
+```bash
+mkdir -p .github
+cp SKILL.md .github/copilot-instructions.md
+```
+
+### Gemini CLI
+
+```bash
+# 用户级（全局可用）
+mkdir -p ~/.gemini
+cat SKILL.md >> ~/.gemini/GEMINI.md
+
+# 或项目级
+cat SKILL.md >> GEMINI.md
+```
+
+### OpenAI Codex CLI
+
+```bash
+# 用户级
+mkdir -p ~/.codex
+cat SKILL.md >> ~/.codex/AGENTS.md
+
+# 或项目级
+cat SKILL.md >> AGENTS.md
+```
+
+### Windsurf (Codeium)
+
+将 SKILL.md 内容添加到项目 `.windsurfrules` 文件：
+
+```bash
+cat SKILL.md >> .windsurfrules
 ```
 
 ## 项目结构
@@ -49,18 +112,9 @@ bun-image/
 │   ├── metadata.ts         # 提取图片元数据
 │   └── placeholder.ts      # 生成 ThumbHash 占位图
 ├── examples/
-│   └── README.md           # 示例说明
 ├── tests/
-│   └── run-tests.sh        # 测试运行脚本
-├── SKILL.md                # Claude Code Skill 文档
-└── README.md               # 本文件
-```
-
-## 运行测试
-
-```bash
-cd tests
-./run-tests.sh
+├── SKILL.md                # Skill 定义文件（Agent 指令）
+└── README.md
 ```
 
 ## 详细文档
