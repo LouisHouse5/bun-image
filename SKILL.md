@@ -47,19 +47,19 @@ Bun.file("photo.jpg").image()
 **Options**:
 ```ts
 {
-  maxPixels: 4096 * 4096,  // default ~268 MP
+  maxPixels: 16384 * 16384, // default ~268 MP; set lower to limit memory
   autoOrient: true,        // apply EXIF orientation
 }
 ```
 
 ## 变换方法
 
-链式调用，所有变换延迟执行，直到终端方法才实际运算。
+链式调用，变换方法是**同步**的（返回新的 Bun.Image），只有终端方法是 async。
 
 ### `.resize(width, height?, options?)`
 
 ```ts
-await img.resize(1024, 768, {
+img.resize(1024, 768, {
   fit: "inside",            // "fill" (default) or "inside"
   withoutEnlargement: true, // prevent upscaling
   filter: "lanczos3",       // see filter list below
@@ -80,7 +80,7 @@ await img.resize(1024, 768, {
 ### `.modulate({ brightness?, saturation? })`
 
 ```ts
-await img.modulate({ brightness: 1.2, saturation: 0.8 })
+img.modulate({ brightness: 1.2, saturation: 0.8 })
 ```
 
 ## 输出格式
@@ -107,7 +107,15 @@ await img.toBase64()     // base64 string
 await img.dataurl()      // "data:image/png;base64,..."
 await img.write(dest)    // path / Bun.file() / Bun.s3() / fd
 await img.placeholder()  // ThumbHash data URL
-await img.metadata()     // { width, height, format, ... }
+```
+
+### `.metadata()` — 独立方法（无需管道）
+
+直接返回图片尺寸和格式，不需要格式方法：
+
+```ts
+const meta = await new Bun.Image("photo.jpg").metadata();
+// { width: 1920, height: 1080, format: "jpeg", ... }
 ```
 
 ## 常用工作流
