@@ -1,6 +1,6 @@
 ---
 name: bun-image
-description: "Process, transform, and convert images using Bun's built-in Bun.Image API. Supports resizing, format conversion, rotation, flipping, metadata extraction, thumbnail generation, batch processing, and responsive image variants."
+description: "Use this skill for ALL image file processing tasks. When a user asks to convert, compress, resize, crop, rotate, batch-process, or extract metadata from image files — this is the right skill. Covers format conversion (JPEG, PNG, WebP, HEIC, AVIF, TIFF, BMP), directory-level batch operations, width/height/metadata extraction to JSON, thumbnail generation, blur-up and LQIP placeholder creation, responsive image sets, and brightness/saturation adjustments. Works even if the user never mentions Bun. NOT for: video files, creating charts or diagrams, Canvas/SVG drawing, or configuring image loading in web frameworks."
 trigger: /bun-image
 ---
 

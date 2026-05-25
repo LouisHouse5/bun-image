@@ -1,5 +1,11 @@
 # bun-image
 
+[中文](#中文) | [English](#english)
+
+---
+
+<a id="中文"></a>
+
 使用 Bun v1.3.14+ 内置 `Bun.Image` API 处理和转换图片，零外部依赖。
 
 ## 功能特性
@@ -120,3 +126,127 @@ bun-image/
 ## 详细文档
 
 完整 API 参考、代码示例、平台矩阵等，请参阅 [SKILL.md](SKILL.md)。
+
+---
+
+<a id="english"></a>
+
+Process and convert images using Bun v1.3.14+ built-in `Bun.Image` API — zero external dependencies.
+
+## Features
+
+- **Zero dependencies**: Built-in native image processing, no sharp / jimp / canvas needed
+- **Chain API**: `.resize().rotate().webp().write()` — multi-step transform in one line
+- **Multi-format**: JPEG, PNG, WebP, GIF, BMP; macOS/Windows also supports HEIC / AVIF / TIFF
+- **High performance**: `metadata()` 70x faster than sharp, conversion 1.3x faster
+- **Batch processing**: Native directory traversal batch conversion
+- **Responsive images**: One-click multi-size image set generation
+- **Placeholder generation**: Built-in ThumbHash placeholder (~400-700 bytes)
+
+## Prerequisites
+
+```bash
+# Install Bun (v1.3.14+)
+curl -fsSL https://bun.sh/install | bash
+```
+
+## Quick Start
+
+```bash
+# 1. Resize a single image
+bun run scripts/resize.ts photo.jpg 800 600 output.jpg
+
+# 2. Batch process a directory
+bun run scripts/batch-resize.ts ./images ./output
+
+# 3. Format conversion
+bun run scripts/convert.ts photo.jpg webp
+
+# 4. Generate responsive image set
+bun run scripts/responsive.ts hero.jpg
+```
+
+## Install in AI Agents
+
+### Claude Code
+
+```bash
+# Global (available in all projects)
+git clone https://github.com/LouisHouse5/bun-image.git ~/.claude/skills/bun-image
+
+# Project-level (current project only)
+git clone https://github.com/LouisHouse5/bun-image.git .claude/skills/bun-image
+```
+
+### Cursor
+
+Copy [SKILL.md](SKILL.md) into project rules:
+
+```bash
+mkdir -p .cursor/rules
+cp SKILL.md .cursor/rules/bun-image.mdc
+```
+
+### Cline (VS Code)
+
+```bash
+cat SKILL.md >> cline-instructions.md
+```
+
+### GitHub Copilot
+
+```bash
+mkdir -p .github
+cp SKILL.md .github/copilot-instructions.md
+```
+
+### Gemini CLI
+
+```bash
+# User-level (global)
+mkdir -p ~/.gemini
+cat SKILL.md >> ~/.gemini/GEMINI.md
+
+# Project-level
+cat SKILL.md >> GEMINI.md
+```
+
+### OpenAI Codex CLI
+
+```bash
+# User-level
+mkdir -p ~/.codex
+cat SKILL.md >> ~/.codex/AGENTS.md
+
+# Project-level
+cat SKILL.md >> AGENTS.md
+```
+
+### Windsurf (Codeium)
+
+Add SKILL.md content to `.windsurfrules`:
+
+```bash
+cat SKILL.md >> .windsurfrules
+```
+
+## Project Structure
+
+```
+bun-image/
+├── scripts/
+│   ├── resize.ts           # Single image resize
+│   ├── batch-resize.ts     # Batch resize directory
+│   ├── convert.ts          # Format conversion
+│   ├── responsive.ts       # Responsive image set
+│   ├── metadata.ts         # Extract image metadata
+│   └── placeholder.ts      # Generate ThumbHash placeholder
+├── examples/
+├── tests/
+├── SKILL.md                # Skill definition (Agent instructions)
+└── README.md
+```
+
+## Full Documentation
+
+For complete API reference, code examples, and platform matrix, see [SKILL.md](SKILL.md).
