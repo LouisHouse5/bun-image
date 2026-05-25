@@ -127,6 +127,56 @@ bun-image/
 └── README.md
 ```
 
+## Agent 使用示例
+
+在 Claude Code / Cursor / Copilot 等 AI Agent 中，直接用自然语言描述图片处理需求即可：
+
+**示例 1 — 调整大小 + 格式转换**
+```
+> 把 hero.jpg 缩小到 800px 宽，转成 webp 格式，质量 85
+
+Agent 会生成：
+  Bun.file("hero.jpg").image()
+    .resize(800, null, { fit: "inside" })
+    .webp({ quality: 85 })
+    .write("hero-800w.webp")
+```
+
+**示例 2 — 批量目录处理**
+```
+> 把 ./product-images 目录里所有 PNG 批量转成 WebP，质量 80
+
+Agent 会生成批量脚本，遍历目录，逐个转换并保存
+```
+
+**示例 3 — 响应式图片集**
+```
+> 为 banner.jpg 生成 320、640、1024、1920 四个尺寸的 webp 版本，用于 srcset
+
+Agent 会生成多尺寸输出文件：banner-320.webp, banner-640.webp, banner-1024.webp, banner-1920.webp
+```
+
+**示例 4 — 元数据 + 占位图**
+```
+> 读取 photo.jpg 的宽高和格式，再生成一个 ThumbHash 模糊占位图
+
+Agent 会输出：
+  宽度: 1920px, 高度: 1080px, 格式: jpeg
+  占位图: data:image/png;base64,... (约 500 字节)
+```
+
+**示例 5 — 旋转 + 亮度调整**
+```
+> 把 portrait.jpg 顺时针旋转 90 度，亮度提高 20%，保存为 JPEG
+
+Agent 会生成：
+  Bun.file("portrait.jpg").image()
+    .rotate(90)
+    .modulate({ brightness: 1.2 })
+    .jpeg({ quality: 80 })
+    .write("portrait_rotated.jpg")
+```
+
 ## 详细文档
 
 完整 API 参考、代码示例、平台矩阵等，请参阅 [SKILL.md](SKILL.md)。
@@ -249,6 +299,56 @@ bun-image/
 ├── tests/
 ├── SKILL.md                # Skill definition (Agent instructions)
 └── README.md
+```
+
+## Agent Usage Examples
+
+In AI agents like Claude Code / Cursor / Copilot, just describe your image task in natural language:
+
+**Example 1 — Resize + Format Conversion**
+```
+> Resize hero.jpg to 800px wide, convert to webp, quality 85
+
+Agent generates:
+  Bun.file("hero.jpg").image()
+    .resize(800, null, { fit: "inside" })
+    .webp({ quality: 85 })
+    .write("hero-800w.webp")
+```
+
+**Example 2 — Batch Directory Processing**
+```
+> Batch convert all PNGs in ./product-images to WebP, quality 80
+
+Agent generates a batch script that iterates the directory and converts each file
+```
+
+**Example 3 — Responsive Image Set**
+```
+> Generate 320, 640, 1024, 1920 webp variants of banner.jpg for srcset
+
+Agent outputs: banner-320.webp, banner-640.webp, banner-1024.webp, banner-1920.webp
+```
+
+**Example 4 — Metadata + Placeholder**
+```
+> Read the width, height and format of photo.jpg, then generate a ThumbHash blur placeholder
+
+Agent outputs:
+  Width: 1920px, Height: 1080px, Format: jpeg
+  Placeholder: data:image/png;base64,... (~500 bytes)
+```
+
+**Example 5 — Rotate + Brightness**
+```
+> Rotate portrait.jpg 90° clockwise, increase brightness by 20%, save as JPEG
+
+Agent generates:
+  Bun.file("portrait.jpg").image()
+    .rotate(90)
+    .modulate({ brightness: 1.2 })
+    .jpeg({ quality: 80 })
+    .write("portrait_rotated.jpg")
 ```
 
 ## Full Documentation
